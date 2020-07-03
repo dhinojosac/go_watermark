@@ -48,13 +48,13 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter pdf filename: ")
 	fn, _ := reader.ReadString('\n')
-	//fmt.Println(fn)
+	fmt.Println(fn)
 	fmt.Print("Enter text to add as watermark: ")
 	wt, _ := reader.ReadString('\n')
-	//fmt.Println(wt)
+	fmt.Println(wt)
 
 	msg := "StampWaterMark"
-	inFile := strings.Replace(fn, "\n", "", -1)
+	inFile := strings.TrimSpace(strings.Replace(fn, "\n", "", -1))
 	watermarkText := wt
 	outFile := strings.Replace(inFile, ".pdf", "", -1) + "_wm.pdf"
 	onTop := true // we are testing stamps
@@ -87,4 +87,7 @@ func main() {
 	if ok := hasWatermarks(outFile); !ok {
 		fmt.Printf("No watermarks found: %s\n", outFile)
 	}
+	_, err = reader.ReadString('\n')
+	fmt.Println(err)
+
 }
